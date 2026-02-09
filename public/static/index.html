@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+    rel="stylesheet">
+
+  <title>GET /</title>
+  <style>
+    * {
+      font-family: "Google Sans", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+      margin-top: 50px;
+      background-color: #f0f0f0;
+    }
+
+    .pre {
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      border: 1px solid #dddcdc;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .bold {
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Welcome to the Express Server</h2>
+  <p>This is the home page. Use the API endpoints to interact with the server.</p>
+  <span style="font-size: 14px;padding-bottom: 20px;">Available API Endpoints</span>
+  <div class="pre">
+    <p style="padding-bottom: 20px;font-size: 12px;">Latest Updated: 02/10/2026</p>
+    <p><span class="bold">GET &nbsp;</span> /api/users - Retrieve a list of all users.</p>
+    <p><span class="bold">POST</span> /api/users - Create a new user. (Requires JSON body with user details)</p>
+    <p><span class="bold">GET</span> /api/users/:id - Retrieve details of a specific user by ID.</p>
+    <p><span class="bold">PUT</span> /api/users/:id - Update details of a specific user by ID. (Requires JSON body with
+      updated user details)</p>
+    <p><span class="bold">DELETE</span> /api/users/:id - Delete a specific user by ID.</p>
+    <p><span class="bold">GET</span> /health - Check the health status of the server.</p>
+  </div>
+  </div>
+</body>
+
+</html>
