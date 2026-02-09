@@ -1,0 +1,51 @@
+name: Express Server CI/CD Workflow
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout code to runner
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "${{ matrix.node-version }}"
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check PORT 8080 using curl
+        run: |
+          npm start &
+          sleep 5
+          curl -f http://localhost:8080 || exit 1
+
+  # build:
+  #   runs-on: ubuntu-latest
+  #   needs: test
+
+  #   steps:
+  #     - name: Checkout code to runner
+  #       uses: actions/checkout@v2
+
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 18.x
+
+  #     - name: Install dependencies
+  #       run: npm install
+
+  #     - name: Build the application
+  #       run: npm run build
