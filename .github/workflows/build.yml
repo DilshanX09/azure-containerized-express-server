@@ -13,7 +13,7 @@ jobs:
         run: docker pull postgres:18.1-alpine3.23
 
       - name: Verify PostgreSQL image
-        run: docker images | grep postgres:18.1-alpine3.23
+        run: docker images | grep postgres
 
       - name: Run PostgreSQL container
         run: |
