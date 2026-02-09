@@ -5,8 +5,16 @@ on:
     branches: ["@dilshan"]
 
 jobs:
-  pull-postgres-image:
+  pull-postgres-image-and-test:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22.x, 24.x]
+
+    env:
+      DATABASE_URL: "postgresql://postgres:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/rest-api-db?schema=public"
+      PORT: 8080
 
     steps:
       - name: Pull PostgreSQL image
@@ -22,19 +30,13 @@ jobs:
       - name: Check PostgreSQL container is running
         run: docker ps | grep postgres
 
-  test:
-    runs-on: ubuntu-latest
-    needs: pull-postgres-image
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until docker exec postgres pg_isready -U postgres; do
+            echo "Waiting for PostgreSQL to be ready..."
+            sleep 2
+          done
 
-    strategy:
-      matrix:
-        node-version: [22.x, 24.x]
-
-    env:
-      DATABASE_URL: "postgresql://postgres:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/rest-api-db?schema=public"
-      PORT: 8080
-
-    steps:
       - name: Checkout code to runner
         uses: actions/checkout@v2
 
