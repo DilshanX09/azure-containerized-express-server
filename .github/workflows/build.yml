@@ -72,4 +72,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/express-server:${{ steps.short-sha.outputs.sha }}
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/express-server:${{ steps.short-sha.outputs.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/express-server:latest
