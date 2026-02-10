@@ -21,7 +21,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const userRoute = require('./routes/user.route');
+const userRoute = require('./src/routes/user.route');
 
 app.use('/api/users', userRoute);
 
