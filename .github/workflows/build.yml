@@ -39,13 +39,20 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Generate Prisma client
-        run: npx prisma generate
-
-      - name: Run test cases
+      # Up and running db is required for prisma migration commands
+      - name: Setup Database and run Tests
         env:
-          DATABASE_URL: postgresql://postgres:password@localhost:5432/rest-api-db
-        run: npm test
+          DATABASE_URL: postgres://postgres:password@localhost:5432/rest-api-db
+        run: |
+          # Wait for postgres to be ready (prevents connection errors)
+          until pg_isready -h localhost -p 5432; do
+            echo "Waiting for Postgres..."
+            sleep 2
+          done
+
+          npx prisma generate
+          npx prisma migrate deploy
+          npm test
 
       - name: Create short SHA for tagging
         uses: benjlevesque/short-sha@v3.0
