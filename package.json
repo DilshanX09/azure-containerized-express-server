@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "nodemon server.js",
-    "test": "jest --detectOpenHandles"
+    "test": "NODE_ENV=test jest --runInBand"
   },
   "keywords": [],
   "author": "@DilshanX09",
