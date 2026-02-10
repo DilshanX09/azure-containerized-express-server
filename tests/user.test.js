@@ -74,5 +74,4 @@ describe('User API Endpoints', () => {
 
 afterAll(async () => {
   await prisma.$disconnect();
-  if (app) app.close();
 });
