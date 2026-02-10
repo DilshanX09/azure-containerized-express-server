@@ -2,65 +2,30 @@ name: Express Server CI/CD Workflow
 
 on:
   push:
-    branches: ["@dilshan"]
+    branches: [main]
 
 jobs:
-  pull-postgres-image-and-test:
+  build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [22.x, 24.x]
-
-    env:
-      DATABASE_URL: "postgresql://postgres:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/rest-api-db?schema=public"
-      PORT: 8080
+    # strategy:
+    #   matrix:
+    #     node-version: [22.x, 24.x]
 
     steps:
-      - name: Pull PostgreSQL image
-        run: docker pull postgres:18.1-alpine3.23
+      - name: Hello World Action
+        run: echo "Hello, world!"
 
-      - name: Verify PostgreSQL image
-        run: docker images | grep postgres
+      # - name: Checkout code to runner
+      #   uses: actions/checkout@v2
 
-      - name: Run PostgreSQL container
-        run: |
-          docker run -d --name postgres -e POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} -p 5432:5432 postgres:18.1-alpine3.23
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: "${{ matrix.node-version }}"
 
-      - name: Check PostgreSQL container is running
-        run: docker ps | grep postgres
-
-      - name: Wait for PostgreSQL to be ready
-        run: |
-          until docker exec postgres pg_isready -U postgres; do
-            echo "Waiting for PostgreSQL to be ready..."
-            sleep 2
-          done
-
-      - name: Checkout code to runner
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "${{ matrix.node-version }}"
-      - name: Install dependencies
-        run: npm install
-
-      - name: Install prisma client
-        run: npm install @prisma/client prisma
-
-      - name: Migrate prisma schema
-        run: npx prisma migrate dev --name init
-
-      - name: Generate prisma client
-        run: npx prisma generate
-
-      - name: Check PORT 8080 using curl
-        run: |
-          npm start &
-          sleep 5
-          curl -f http://localhost:8080 || exit 1
+      # - name: Install dependencies
+      #   run: npm install
 
   # build:
   #   runs-on: ubuntu-latest
