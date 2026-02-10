@@ -1,7 +1,15 @@
 const userService = require('../services/user.service');
 
 exports.createUser = async (req, res) => {
+
+  if (!req.body) {
+    return res
+      .status(400)
+      .json({ success: false, message: 'Request body is required, please provide user details.' });
+  }
+
   const { firstName, lastName, email, mobile, password } = req.body;
+
   if (!firstName || !lastName || !email || !mobile || !password) {
     return res
       .status(400)
@@ -69,7 +77,6 @@ exports.deleteUserById = async (req, res) => {
   }
 
   const isFound = await userService.getUserById(id);
-  console.log(isFound);
 
   if (isFound !== null) {
     const deletedUser = await userService.deleteUserById(id);
@@ -80,7 +87,7 @@ exports.deleteUserById = async (req, res) => {
     }
     return res
       .status(200)
-      .json({ success: true, message: 'User deleted successfully.' });
+      .json({ success: true, data: deletedUser, message: 'User deleted successfully.' });
   }
   return res
     .status(404)

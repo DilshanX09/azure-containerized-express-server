@@ -57,7 +57,6 @@ exports.getUserById = async (userId) => {
 /**
  * Deletes a user from the database by their unique identifier.
  * @param {number} userId - The unique identifier of the user to delete.
- * @return {Object|null} Returns an object containing the 
  *       deleted user's details (id, firstName, lastName, email, mobile, createdAt) if deletion was successful, otherwise null.
 */
 exports.deleteUserById = async (userId) => {
