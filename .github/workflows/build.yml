@@ -82,7 +82,6 @@ jobs:
           SHA_TAG=${{ steps.short-sha.outputs.sha }}
 
           docker build -t $REGISTRY_IMAGE:$SHA_TAG .
-
           docker tag $REGISTRY_IMAGE:$SHA_TAG $REGISTRY_IMAGE:latest
 
           docker push $REGISTRY_IMAGE:$SHA_TAG
