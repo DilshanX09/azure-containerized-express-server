@@ -75,10 +75,11 @@ jobs:
           login-server: ${{ secrets.ACR_LOGIN_SERVER }}
           username: ${{ secrets.ACR_LOGIN_USERNAME }}
           password: ${{ secrets.ACR_LOGIN_PASSWORD }}
+
       - run: |
 
-          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/express-server:${{ steps.short-sha.outputs.short_sha }} .
+          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/express-server:${{ steps.short-sha.outputs.sha }} .
           docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/express-server:latest .
 
-          docker push ${{ secrets.ACR_LOGIN_SERVER }}/express-server:${{ steps.short-sha.outputs.short_sha }}
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/express-server:${{ steps.short-sha.outputs.sha }}
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/express-server:latest
