@@ -89,8 +89,14 @@ jobs:
 
           echo "IMAGE_TAG=$REGISTRY_IMAGE:$SHA_TAG" >> $GITHUB_ENV
 
+      - name: Loging to Azure portal
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
           images: ${{ secrets.ACR_LOGIN_SERVER }}/express-server:latest
+          slot-name: production
