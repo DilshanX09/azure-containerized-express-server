@@ -4,7 +4,7 @@ FROM node:24-alpine3.22
 WORKDIR /app
 
 # Set environment variables for the application
-ENV PORT=8080
+ENV PORT=80
 
 # Copy package.json and Prisma schema files to the container
 COPY package*.json ./
@@ -19,6 +19,6 @@ COPY . .
 RUN npx prisma generate
 
 # Expose the application port
-EXPOSE 8080
+EXPOSE 80
 
 CMD ["npm", "start"]
