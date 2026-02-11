@@ -76,10 +76,12 @@ jobs:
           username: ${{ secrets.ACR_LOGIN_USERNAME }}
           password: ${{ secrets.ACR_LOGIN_PASSWORD }}
 
-      - run: |
-
+      - name: Build and Tagging
+        run: |
           docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/express-server:${{ steps.short-sha.outputs.sha }} .
           docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/express-server:latest .
 
+      - name: Push to Azure Container Registry
+        run: |
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/express-server:${{ steps.short-sha.outputs.sha }}
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/express-server:latest
