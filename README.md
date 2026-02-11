@@ -8,7 +8,7 @@ Follow these steps to get the project running locally in seconds
 1. Clone & Install Dependencies
 
 ```
-git clone https://github.com/DilshanX09/express-server.git
+git clone https://github.com/DilshanX09/azure-containerized-express-server.git
 cd express-server
 npm install
 ```
