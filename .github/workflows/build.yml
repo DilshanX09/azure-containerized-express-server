@@ -2,7 +2,7 @@ name: Express Server CI/CD Workflow
 
 on:
   push:
-    branches: ["@dilshan"]
+    branches: [main]
 
 jobs:
   build-and-test:

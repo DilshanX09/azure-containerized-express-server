@@ -40,6 +40,11 @@
     .bold {
       font-weight: 600;
     }
+
+    .underline {
+      text-decoration: underline;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -48,8 +53,9 @@
   <p>This is the home page. Use the API endpoints to interact with the server.</p>
   <span style="font-size: 14px;padding-bottom: 20px;">Available API Endpoints</span>
   <div class="pre">
-    <p style="padding-bottom: 20px;font-size: 12px;">Latest Updated: 02/10/2026</p>
-    <p><span class="bold">GET &nbsp;</span> /api/users - Retrieve a list of all users.</p>
+    <p style="padding-bottom: 20px;font-size: 12px;">Latest Updated: 02/11/2026</p>
+    <p onclick="loadUsers();"><span class="bold underline">GET &nbsp;</span> /api/users - Retrieve a list of all users.
+    </p>
     <p><span class="bold">POST</span> /api/users - Create a new user. (Requires JSON body with user details)</p>
     <p><span class="bold">GET</span> /api/users/:id - Retrieve details of a specific user by ID.</p>
     <p><span class="bold">PUT</span> /api/users/:id - Update details of a specific user by ID. (Requires JSON body with
@@ -57,7 +63,29 @@
     <p><span class="bold">DELETE</span> /api/users/:id - Delete a specific user by ID.</p>
     <p><span class="bold">GET</span> /health - Check the health status of the server.</p>
   </div>
+  <button onclick="window.location.href='/health'"
+    style="background-color: #212121;color: #ffff; outline: none; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 20px;">
+    Check server health
+  </button>
+
+  <div id="api-response" style="margin-top:50px ;">
+
   </div>
+
+  <script>
+    async function loadUsers() {
+      await fetch('/api/users')
+        .then(res => res.json())
+        .then(data => {
+          const responseDiv = document.getElementById('api-response');
+          responseDiv.innerHTML = `<h3>GET /api/users </h3><pre class="pre">${JSON.stringify(data, null, 2)}</pre>`;
+        })
+        .catch(err => {
+          console.error('Error fetching users:', err);
+        });
+    }
+  </script>
+
 </body>
 
 </html>
