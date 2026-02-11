@@ -1,4 +1,4 @@
-# Express Server Pro (Azure & Docker Ready)
+# Azure Containerized Express Server
 
 `A production-ready Express.js server template using MVC architecture, containerized with Docker, and configured for automated CI/CD deployment to Azure Web App.`
 
@@ -8,7 +8,7 @@ Follow these steps to get the project running locally in seconds
 1. Clone & Install Dependencies
 
 ```
-git clone https://github.com/DilshanX09/express-server.git
+git clone https://github.com/DilshanX09/azure-containerized-express-server.git
 cd express-server
 npm install
 ```
