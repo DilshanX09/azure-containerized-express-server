@@ -1,6 +1,5 @@
 const request = require("supertest");
 const app = require("../server");
-const { PrismaClient } = require("../generated/prisma/index");
 const prisma = require("../src/libs/prisma");
 
 const RESTART_IDENTITY = `TRUNCATE TABLE "User" RESTART IDENTITY CASCADE;`;
@@ -74,7 +73,5 @@ describe('User API Endpoints', () => {
 });
 
 afterAll(async () => {
-  await prisma.user.deleteMany();
-  await prisma.$executeRawUnsafe(RESTART_IDENTITY);
   await prisma.$disconnect();
 });

@@ -15,7 +15,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
@@ -30,15 +30,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/health', (req, res) => {
-  res
-    .status(200)
-    .json({
-      status: 'HEALTHY',
-      message: 'SERVER UP & RUNNING',
-      timestamp: new Date().toISOString(), version: '1.0'
-    });
+  res.sendFile(path.join(__dirname, 'public/static/health.html'));
 });
 
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+}
 
 module.exports = app;
