@@ -76,12 +76,16 @@ jobs:
           username: ${{ secrets.ACR_LOGIN_USERNAME }}
           password: ${{ secrets.ACR_LOGIN_PASSWORD }}
 
-      - name: Build and Tagging
+      - name: Build and push Docker image to ACR
         run: |
-          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/express-server:${{ steps.short-sha.outputs.sha }} .
-          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/express-server:latest .
+          REGISTRY_IMAGE=${{ secrets.ACR_LOGIN_SERVER }}/express-server
+          SHA_TAG=${{ steps.short-sha.outputs.sha }}
 
-      - name: Push to Azure Container Registry
-        run: |
-          docker push ${{ secrets.ACR_LOGIN_SERVER }}/express-server:${{ steps.short-sha.outputs.sha }}
-          docker push ${{ secrets.ACR_LOGIN_SERVER }}/express-server:latest
+          docker build -t $REGISTRY_IMAGE:$SHA_TAG .
+
+          docker tag $REGISTRY_IMAGE:$SHA_TAG $REGISTRY_IMAGE:latest
+
+          docker push $REGISTRY_IMAGE:$SHA_TAG
+          docker push $REGISTRY_IMAGE:latest
+
+          echo "IMAGE_TAG=$REGISTRY_IMAGE:$SHA_TAG" >> $GITHUB_ENV
