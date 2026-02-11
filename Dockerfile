@@ -21,4 +21,4 @@ RUN npx prisma generate
 # Expose the application port
 EXPOSE 80
 
-CMD ["npm", "start"]
+CMD npx prisma migrate deploy && npm start
