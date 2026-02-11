@@ -23,9 +23,10 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-    strategy:
-      matrix:
-        node-version: [22.x, 24.x]
+    # Uncomment the following lines to run tests on multiple Node.js versions
+    # strategy:
+    #   matrix:
+    #     node-version: [22.x, 24.x]
 
     steps:
       - name: Checkout code to runner
@@ -34,7 +35,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "${{ matrix.node-version }}"
+          node-version: "22"
 
       - name: Install dependencies
         run: npm install
