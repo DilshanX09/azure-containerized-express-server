@@ -1,4 +1,4 @@
-# Express Server Pro (Azure & Docker Ready)
+# Azure Containerized Express Server
 
 `A production-ready Express.js server template using MVC architecture, containerized with Docker, and configured for automated CI/CD deployment to Azure Web App.`
 
