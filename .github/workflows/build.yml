@@ -55,7 +55,7 @@ jobs:
           npx prisma migrate deploy
           npm test
 
-  deploy:
+  deploy-to-production:
     needs: build-and-test
     runs-on: ubuntu-latest
 
