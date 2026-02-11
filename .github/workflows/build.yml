@@ -88,3 +88,9 @@ jobs:
           docker push $REGISTRY_IMAGE:latest
 
           echo "IMAGE_TAG=$REGISTRY_IMAGE:$SHA_TAG" >> $GITHUB_ENV
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          images: ${{ secrets.ACR_LOGIN_SERVER }}/express-server:latest
